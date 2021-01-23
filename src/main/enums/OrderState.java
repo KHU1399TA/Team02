@@ -11,12 +11,6 @@ enum OrderState{
 
     @Override
     public String toString() {
-        return "OrderState{" +
-                "orderState='" + orderState + '\'' +
-                '}';
+        return orderState;
     }
-}
-
-public class OrderStateClass {
-
 }

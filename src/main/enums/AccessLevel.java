@@ -14,5 +14,3 @@ enum AccessLevel{
     }
 }
 
-public class AccessLevelClass {
-}
