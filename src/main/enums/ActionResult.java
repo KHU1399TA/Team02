@@ -1,6 +1,6 @@
 package main.enums;
 
-enum ActionResult{
+public enum ActionResult{
     SUCCESS("Ba movafaghiat anjam shod"),
     INVALID_USERNAME("Baraye username faghat az a-z va A-Z va adad mitavanid estefade konid"),
     INVALID_PASSWORD("Baraye password faghat az a-z va A-Z va adad mitavanid estefade konid"),

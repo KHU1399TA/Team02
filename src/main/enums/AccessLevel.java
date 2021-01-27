@@ -1,6 +1,5 @@
 package main.enums;
-
-enum AccessLevel{
+public enum AccessLevel{
     MANAGER(0),CASHIER(1),CLIENT(2),CHEF(3),DELIVERYMAN(4);
     int number;
 
