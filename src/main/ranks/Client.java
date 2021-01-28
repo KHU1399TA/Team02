@@ -1,6 +1,8 @@
 package main.ranks;
 
 import main.enums.AccessLevel;
+import main.enums.ActionResult;
+import main.others.Order;
 
 import java.util.Date;
 
@@ -19,4 +21,10 @@ public class Client extends User{
     public String toString_show() {
         return firstName + "_" + lastName + "_" + phonenumber + "_" + username + "_" + password + "_" + registrationDate + "_" + lastLoginDate + "_" + accessLevel + "_" + address + "_";
     }
+//    ActionResult makeOrder(Order order){
+//
+//    }
+//    ActionResult revokeOrder(int id){
+//
+//    }
 }

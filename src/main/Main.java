@@ -1,5 +1,6 @@
 package main ;
 import main.enums.AccessLevel;
+import main.enums.ActionResult;
 import main.enums.OrderState;
 import main.others.Food;
 import main.others.Order;
@@ -99,46 +100,114 @@ public class Main {
 
     public static void main(String[] agrs) {
         load();
-        for(User i : restaurant.users){
-            System.out.println(i.toString());
-        }
-        line();
-        save();
-        for(User i : restaurant.users){
-            System.out.println(i.toString_show());
-        }
         System.out.println("Welcome");
+        String firstName="";
+        String lasrName="";
+        String phoneNumber="";
+        String username="";
+        String password="";
+        String address="";
+        boolean enter=false;
+        ActionResult saveAccResult;
         line();
-
         while (true) { //start page
-
-            System.out.print("type your number: | login = 0   registeer = 1   back to start = 2| :");
+            System.out.print("type your number: | login = 0   registeer = 1   exit = 2| :");
             int start = scanner.nextInt();
-
-            if (start == 0) {
-                while (true) {
-
-                    // search in users
-                    // open panel(with method) or print error or go back to start
+            if (start == 0) {           //login
+                saveAccResult=ActionResult.USERNAME_NOT_FOUND;
+                System.out.print("enter your username: ");
+                username=scanner.next();
+                System.out.print("enter your password: ");
+                password=scanner.next();
+                for(User i:restaurant.users){
+                    saveAccResult=i.login(username,password);
+                    if(saveAccResult==ActionResult.WRONG_PASSWORD){
+                        System.out.println(ActionResult.WRONG_PASSWORD);
+                        break;
+                    }
+                    if(saveAccResult==ActionResult.SUCCESS){
+                        enter=true;
+                        switch (i.accessLevel){
+                            case CLIENT:
+                                clientpanel(i);
+                                break;
+                            case CASHIER:
+                                cashierpanel(i);
+                                break;
+                            case CHEF:
+                                chefpanel(i);
+                                break;
+                            case DELIVERYMAN:
+                                deliverymanpanel(i);
+                                break;
+                            case MANAGER:
+                                managerpanel(i);
+                                break;
+                        }
+                        break;
+                    }
                 }
-            } else if (start == 1) {
-                while (true) {
-                    // (for client) get f/n name & number & address & username & password(2x) | generate dates(regis & lastlog)
-
+                if(saveAccResult==ActionResult.USERNAME_NOT_FOUND){
+                    System.out.println(ActionResult.USERNAME_NOT_FOUND);
                 }
-            } else if (start == 2) {
+            } else if (start == 1) {           //register
+                while (true) {
+                    saveAccResult=ActionResult.SUCCESS;
+                    System.out.println(restaurant.users);
+                    System.out.println("..|enter: firstName,lastName,phoneNumber,userName,password,address|..");
+                    firstName=scanner.next();
+                    lasrName=scanner.next();
+                    phoneNumber=scanner.next();
+                    username=scanner.next();
+                    password=scanner.next();
+                    address=scanner.next();
+                    if(StringSyn.checkusername(username)==ActionResult.INVALID_USERNAME){
+                        System.out.println(ActionResult.INVALID_USERNAME);
+                        saveAccResult=ActionResult.INVALID_USERNAME;
+                        break;
+                    }
+                    if(StringSyn.checkpassword(password)==ActionResult.INVALID_PASSWORD){
+                        System.out.println(ActionResult.INVALID_PASSWORD);
+                        saveAccResult=ActionResult.INVALID_PASSWORD;
+                        break;
+                    }
+                    for(User i : restaurant.users){
+                        if(i.username.equals(username)){
+                            System.out.println(ActionResult.USERNAME_ALREADY_EXIST);
+                            saveAccResult=ActionResult.USERNAME_ALREADY_EXIST;
+                            break;
+                        }
+                    }
+                    if(saveAccResult.equals(ActionResult.SUCCESS)) {
+                        restaurant.users.add(new Client(firstName, lasrName, phoneNumber, username, password, myClock, myClock, AccessLevel.CLIENT, address));
+                        save();
+                        load();
+                    }
+                    break;
+                }
+            } else if (start == 2) {                //back to start
                 break;
             } else {
                 System.out.print("please enter correct number : ");
             }
-
         }
         line();
         System.out.println("Have a nice day");
         line();
     }
 
-    void clientpanel(/*User client*/) {
+    static void clientpanel(User client) {
+        System.out.println("---=== clientpanel ===---");
+        while (true){
+            int start;
+            System.out.println("type your number: | show menu = 0    make order = 1    revoke order = 2    check my orders| :");
+            start=scanner.nextInt();
+            if(start==0){
+                for(Food i : restaurant.menu){
+
+                }
+            }
+        }
         /*
         show menu
         refresh menu
@@ -148,13 +217,15 @@ public class Main {
          */
     }
 
-    void cashierpanel(/*User cashier*/) {
+    static void cashierpanel(User cashier) {
+        System.out.println("---=== cashierpanel ===---");
         /*
         Action result confirmOrder(int id ,Restaurant restaurant)
          */
     }
 
-    void chefpanel(/*User chef*/) {
+    static void chefpanel(User chef) {
+        System.out.println("---=== chefpanel ===---");
         /*
         ActionResult add food(Food food ,Restaurant restaurant)
         ActionResult edit food(int id ,Restaurant restaurant)
@@ -164,13 +235,15 @@ public class Main {
          */
     }
 
-    void deliverymanpanel(/*User deliveryman*/) {
+    static void deliverymanpanel(User deliveryman) {
+        System.out.println("---=== deliverymanpanel ===---");
         /*
         ActionResult deliver (int id ,Restaurant restaurant) (if state==cooked change to delivered)
          */
     }
 
-    void managerpanel(/*User manager*/) {
+    static void managerpanel(User manager) {
+        System.out.println("---=== managerpanel ===---");
         /*
         ActionResult register (User member ,Restaurant restaurant)(ranks except client)(add to files and reload array)
         ActionResult edit (String username ,String password ,Restaurant restaurant)

@@ -3,7 +3,7 @@ package utils;
 import main.enums.*;
 
 public class StringSyn {
-    public static ActionResult username(String s) {
+    public static ActionResult checkusername(String s) {
         for (char i : s.toCharArray()) {
             int ascii = i;
             if ((48 <= ascii && ascii <= 57) || (65 <= ascii && ascii <= 90) || (97 <= ascii && ascii <= 122)) continue;
@@ -12,7 +12,7 @@ public class StringSyn {
         return ActionResult.SUCCESS;
     }
 
-    public static ActionResult password(String s) {
+    public static ActionResult checkpassword(String s) {
         for (char i : s.toCharArray()) {
             int ascii = i;
             if ((48 <= ascii && ascii <= 57) || (65 <= ascii && ascii <= 90) || (97 <= ascii && ascii <= 122)) continue;

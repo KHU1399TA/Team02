@@ -27,4 +27,7 @@ public class Food {
     public String toString() {
         return id + "_" + name + "_" + myInglist(Ingredients) + "_" + isAvailable+"_";
     }
+    public String toString_show() {
+        return "food number "+id + ": " + name + "Ingredients" + myInglist(Ingredients) + "_" + isAvailable+"_";
+    }
 }
