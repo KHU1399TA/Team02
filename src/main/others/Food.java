@@ -1,6 +1,6 @@
 package main.others;
 import java.util.ArrayList;
-class Food {
+public class Food {
     public int id;
     public String name;
     public ArrayList<String> Ingredients;
@@ -15,10 +15,16 @@ class Food {
     public void addIngredients(String ingrediants) {
         Ingredients.add(ingrediants);
     }
-
+    public String myInglist(ArrayList<String> Ingredients){
+        String s="";
+        for(String i : Ingredients){
+            s+=i+",";
+        }
+        s+="\b";
+        return s;
+    }
     @Override
     public String toString() {
-        return "Food [Ingredients=" + Ingredients + ", id=" + id + ", isAvailable=" + isAvailable + ", name=" + name
-                + "]";
+        return id + "_" + name + "_" + myInglist(Ingredients) + "_" + isAvailable+"_";
     }
 }

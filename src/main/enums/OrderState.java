@@ -1,12 +1,13 @@
 package main.enums;
 
 public enum OrderState{
-    MADE("Sefareshe shoma amade ast"),CONFIRMED("sefareshe shoma taiid shode ast"),
-    COOKED("sefareshe shoma pokhte shode ast"),DELIVERED("sefareshe shoma ersal shode ast");
+    MADE("Sefareshe shoma amade ast",0),CONFIRMED("sefareshe shoma taiid shode ast",1),
+    COOKED("sefareshe shoma pokhte shode ast",2),DELIVERED("sefareshe shoma ersal shode ast",3);
     String orderState;
-
-    OrderState(String orderState) {
+    int orderStateNumber;
+    OrderState(String orderState,int orderStateNumber) {
         this.orderState = orderState;
+        this.orderStateNumber = orderStateNumber;
     }
 
     @Override
