@@ -21,9 +21,8 @@ public class Food {
     public String myInglist(ArrayList<String> Ingredients){
         String s="";
         for(String i : Ingredients){
-            s+=i+" , ";
+            s+=i+",";
         }
-        s+="\b\b";
         return s;
     }
     @Override

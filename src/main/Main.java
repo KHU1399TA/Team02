@@ -99,9 +99,14 @@ public class Main {
     public static void line() {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     }
-
+    public static void res_show(){
+        System.out.println(restaurant.users);
+        System.out.println(restaurant.menu);
+        System.out.println(restaurant.orders);
+    }
     public static void main(String[] agrs) {
         load();
+        res_show();
         System.out.println("Welcome");
         String firstName="";
         String lasrName="";
@@ -112,9 +117,6 @@ public class Main {
         boolean enter=false;
         ActionResult saveAccResult;
         line();
-        for (User i : restaurant.users){
-            System.out.println(i);
-        }
         while (true) { //start page
             System.out.print("type your number: | login = 0   registeer = 1   exit = 9| :");
             int start = scanner.nextInt();
@@ -232,12 +234,13 @@ public class Main {
                      }
                  }
                  Order order=new Order(orderId,client.username,id,OrderState.MADE,myClock);
-                 System.out.println(client.makeOrder(order,restaurant.orders,restaurant.menu));
+                 save();
             }
             else if(start==2){
                 System.out.println("enter your food id");
                 int id=scanner.nextInt();
                 System.out.println(client.revokeOrder(id,restaurant.orders));
+                save();
             }
             else if(start==3){
                 System.out.println(restaurant.orders);

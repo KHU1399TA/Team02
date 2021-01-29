@@ -10,8 +10,7 @@ public enum OrderState{
         this.orderStateNumber = orderStateNumber;
     }
 
-    @Override
     public String toString() {
-        return orderState;
+        return String.valueOf(orderStateNumber);
     }
 }
