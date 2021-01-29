@@ -350,25 +350,65 @@ public class Main {
             System.out.println(restaurant.orders);
         }
     }
-
     static void managerpanel(User user) {
         Manager manager = new Manager(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
 
         System.out.println("---=== managerpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Confirm order = 0    exit = 9 | :");
+            System.out.print("type your number: | register = 0    edit = 1    remove = 2    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
-
+                System.out.println("..|enter: firstName,lastName,phoneNumber,username,password,accessLevel(client=0,cashier=1,chef=2,delivery=3)|..");
+                String firstName=scanner.next();
+                String lastName=scanner.next();
+                String phonenumber=scanner.next();
+                String username=scanner.next();
+                String password=scanner.next();
+                int accessLevelnumber=scanner.nextInt();
+                switch (accessLevelnumber){
+                    case 0:{
+                        System.out.println("enter address");
+                        manager.register(new Client(firstName,lastName,phonenumber,username,password,myClock,myClock,AccessLevel.CASHIER,scanner.next()),restaurant.users);
+                        break;
+                    }
+                    case 1:{
+                        manager.register(new Cashier(firstName,lastName,phonenumber,username,password,myClock,myClock,AccessLevel.CASHIER),restaurant.users);
+                        break;
+                    }
+                    case 2:{
+                        manager.register(new Chef(firstName,lastName,phonenumber,username,password,myClock,myClock,AccessLevel.CHEF),restaurant.users);
+                        break;
+                    }
+                    case 3:{
+                        manager.register(new Deliveryman(firstName,lastName,phonenumber,username,password,myClock,myClock,AccessLevel.DELIVERYMAN),restaurant.users);
+                        break;
+                    }
+                }
+            }
+            if(start==1){
+                System.out.println("type username:");
+                String username=scanner.next();
+                System.out.println("type your number: | changepass firstName = 0    change lastName= 1    change phonenumber= 2    change password= 3    change AccessLevel= 4    | :");
+                int id=scanner.nextInt();
+                if(id==4){
+                    System.out.println("type your number: | client = 0    cashier = 1    chef = 2    delivery = 3    | :");
+                    int accessLevelnum=scanner.nextInt();
+                    manager.edit(username,accessLevelnum,restaurant.users);
+                }
+                else{
+                    System.out.println("replace to:");
+                    String string=scanner.next();
+                    manager.edit(username,id,string,restaurant.users);
+                }
+            }
+            if(start==2){
+                System.out.println("type username:");
+                String username=scanner.next();
+                manager.remove(username,restaurant.users);
             }
             else if(start==9)return;
             else System.out.println("please enter correct number : ");
         }
-        /*
-        ActionResult register (User member ,Restaurant restaurant)(ranks except client)(add to files and reload array)
-        ActionResult edit (String username ,String password ,Restaurant restaurant)
-        ActionResult remove (String username,Restaurant restaurant)
-         */
     }
 }

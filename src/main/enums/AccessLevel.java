@@ -10,7 +10,7 @@ public enum AccessLevel{
     public int get_num() {
         return number;
     }
-    public AccessLevel get_enum(int a){
+    public static AccessLevel get_enum(int a){
         switch (a){
             case 0:return AccessLevel.CLIENT;
             case 1:return AccessLevel.CASHIER;
