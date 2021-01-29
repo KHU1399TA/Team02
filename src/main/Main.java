@@ -116,7 +116,7 @@ public class Main {
             System.out.println(i);
         }
         while (true) { //start page
-            System.out.print("type your number: | login = 0   registeer = 1   exit = 2| :");
+            System.out.print("type your number: | login = 0   registeer = 1   exit = 9| :");
             int start = scanner.nextInt();
             if (start == 0) {           //login
                 saveAccResult=ActionResult.USERNAME_NOT_FOUND;
@@ -190,7 +190,7 @@ public class Main {
                     }
                     break;
                 }
-            } else if (start == 2) {                //back to start
+            } else if (start == 9) {                //back to start
                 break;
             } else {
                 System.out.print("please enter correct number : ");
@@ -206,7 +206,7 @@ public class Main {
         System.out.println("---=== clientpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | show menu = 0    make order = 1    revoke order = 2    check my orders(all for now) = 3    exit = 4 | :");
+            System.out.print("type your number: | show menu = 0    make order = 1    revoke order = 2    check my orders(all for now) = 3    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
                 for(Food i : restaurant.menu){
@@ -242,7 +242,7 @@ public class Main {
             else if(start==3){
                 System.out.println(restaurant.orders);
             }
-            else if(start==4)return;
+            else if(start==9)return;
             else System.out.println("please enter correct number : ");
         }
     }
@@ -252,14 +252,14 @@ public class Main {
         System.out.println("---=== cashierpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            System.out.print("type your number: | Confirm order = 0    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
                 System.out.println("enter Order id : ");
                 int id=scanner.nextInt();
                 System.out.println(cashier.confirmOrder(id,restaurant.orders));
             }
-            else if(start==1)return;
+            else if(start==9)return;
             else System.out.println("please enter correct number : ");
             System.out.println(restaurant.orders);
         }
@@ -267,25 +267,69 @@ public class Main {
 
     static void chefpanel(User user) {
         Chef chef = new Chef(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
-
         System.out.println("---=== chefpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            System.out.print("type your number: | add food = 0    edit food = 1    remove food = 2    change food status = 3    cook food = 4    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
-
+                System.out.println("..|enter: id,name,Ingredients number,List Ingredients,status(1=Available / 0=not Available)|..");
+                int id=scanner.nextInt();
+                String name=scanner.next();
+                int number=scanner.nextInt();
+                ArrayList<String> Ingredients = new ArrayList<String>();
+                for(int i=0;i<number;i++){
+                    Ingredients.add(scanner.next());
+                }
+                int isnumber=scanner.nextInt();
+                boolean isAvailable=false;
+                if(isnumber==0){
+                    isAvailable=false;
+                }
+                else if(isnumber==1){
+                    isAvailable=true;
+                }
+                else{
+                    System.out.println(ActionResult.UNKNOWN_ERROR);
+                }
+                System.out.println(chef.addFood(new Food(id,name,Ingredients,isAvailable),restaurant.menu));
+                System.out.println(restaurant.menu);
+            }else if(start==1){
+                System.out.println("..|enter: id,Ingredients number,List Ingredients|..");
+                int id=scanner.nextInt();
+                int number=scanner.nextInt();
+                ArrayList<String> Ingredients = new ArrayList<String>();
+                for(int i=0;i<number;i++){
+                    Ingredients.add(scanner.next());
+                }
+                System.out.println(chef.editFood(id,Ingredients,restaurant.menu));
+                System.out.println(restaurant.menu);
+            }else if(start==2){
+                System.out.println("..|enter: id|..");
+                int id=scanner.nextInt();
+                System.out.println(chef.removeFood(id,restaurant.menu));
+                System.out.println(restaurant.menu);
+            }else if(start==3){
+                System.out.println("..|enter: id,status(1=Available / 0=not Available)|..");
+                int id=scanner.nextInt();
+                int statusid=scanner.nextInt();
+                boolean bool=false;
+                if(statusid==1){
+                    bool=true;
+                }else if(statusid==0){
+                    bool=false;
+                }
+                System.out.println(chef.changeFoodStatus(id,bool,restaurant.menu));
+                System.out.println(restaurant.menu);
+            }else if(start==4){
+                System.out.println("..|enter: id|..");
+                int id=scanner.nextInt();
+                System.out.println(chef.cook(id,restaurant.orders));
+                System.out.println(restaurant.menu);
             }
-            else if(start==1)return;
+            else if(start==9)return;
             else System.out.println("please enter correct number : ");
         }
-        /*
-        ActionResult add food(Food food ,Restaurant restaurant)
-        ActionResult edit food(int id ,Restaurant restaurant)
-        ActionResult remove food(int id ,Restaurant restaurant)
-        ActionResult change food status(int id ,boolean isAvailble ,Restaurant restaurant)
-        ActionResult cook (int id ,Restaurant restaurant) (check order if state=confirm)
-         */
     }
 
     static void deliverymanpanel(User user) {
@@ -294,14 +338,14 @@ public class Main {
         System.out.println("---=== deliverymanpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Deliver order = 0    exit = 1 | :");
+            System.out.print("type your number: | Deliver order = 0    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
                 System.out.println("enter Order id : ");
                 int id=scanner.nextInt();
                 System.out.println(deliveryman.deliverOrder(id,restaurant.orders));
             }
-            else if(start==1)return;
+            else if(start==9)return;
             else System.out.println("please enter correct number : ");
             System.out.println(restaurant.orders);
         }
@@ -313,12 +357,12 @@ public class Main {
         System.out.println("---=== managerpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            System.out.print("type your number: | Confirm order = 0    exit = 9 | :");
             start=scanner.nextInt();
             if(start==0){
 
             }
-            else if(start==1)return;
+            else if(start==9)return;
             else System.out.println("please enter correct number : ");
         }
         /*
