@@ -2,8 +2,10 @@ package main.ranks;
 
 import main.enums.AccessLevel;
 import main.enums.ActionResult;
+import main.others.Food;
 import main.others.Order;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Client extends User{
@@ -21,10 +23,30 @@ public class Client extends User{
     public String toString_show() {
         return firstName + "_" + lastName + "_" + phonenumber + "_" + username + "_" + password + "_" + registrationDate + "_" + lastLoginDate + "_" + accessLevel + "_" + address + "_";
     }
-//    ActionResult makeOrder(Order order){
-//
-//    }
-//    ActionResult revokeOrder(int id){
-//
-//    }
+    public static ActionResult makeOrder(Order order, ArrayList<Order> orders,ArrayList<Food> menu){
+        for(Order i : orders){
+            if(order.foodId==i.foodId && order.username==i.username){
+                return ActionResult.FOOD_ALREADY_EXIST;
+            }
+        }
+        boolean check=false;
+        for(Food i : menu){
+            if(order.foodId==i.id){
+                check=true;
+            }
+        }
+        if(!check) return ActionResult.FOOD_NOT_FOUND;
+        orders.add(order);  // ??????????????????
+        return ActionResult.SUCCESS;
+    }
+    public static ActionResult revokeOrder(int id, ArrayList<Order> orders){
+        for(Order i : orders){
+            if(id==i.id){
+                orders.remove(orders.indexOf(i));
+                return ActionResult.SUCCESS;
+            }
+            return ActionResult.ORDER_NOT_FOUND;
+        }
+        return ActionResult.ORDER_NOT_FOUND;
+    }
 }

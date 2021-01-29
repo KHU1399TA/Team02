@@ -8,19 +8,22 @@ public class Food {
     public Food(int id, String name, ArrayList<String> ingredients, boolean isAvailable) {
         this.id = id;
         this.name = name;
-        this.Ingredients = new ArrayList<String>();
+        this.Ingredients = ingredients;
         this.isAvailable = isAvailable;
     }
-
+    public String isAvailable(boolean bool){
+        if(bool) return "Available";
+        return "notAvailable";
+    }
     public void addIngredients(String ingrediants) {
         Ingredients.add(ingrediants);
     }
     public String myInglist(ArrayList<String> Ingredients){
         String s="";
         for(String i : Ingredients){
-            s+=i+",";
+            s+=i+" , ";
         }
-        s+="\b";
+        s+="\b\b";
         return s;
     }
     @Override
@@ -28,6 +31,6 @@ public class Food {
         return id + "_" + name + "_" + myInglist(Ingredients) + "_" + isAvailable+"_";
     }
     public String toString_show() {
-        return "food number "+id + ": " + name + "Ingredients" + myInglist(Ingredients) + "_" + isAvailable+"_";
+        return "food number "+id + ": " + name  + "  " + isAvailable(isAvailable)+ "    Ingredients: " + myInglist(Ingredients);
     }
 }

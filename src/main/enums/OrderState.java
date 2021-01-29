@@ -1,7 +1,7 @@
 package main.enums;
 
 public enum OrderState{
-    MADE("Sefareshe shoma amade ast",0),CONFIRMED("sefareshe shoma taiid shode ast",1),
+    MADE("Sefareshe shoma sabt shode",0),CONFIRMED("sefareshe shoma taiid shode ast",1),
     COOKED("sefareshe shoma pokhte shode ast",2),DELIVERED("sefareshe shoma ersal shode ast",3);
     String orderState;
     int orderStateNumber;

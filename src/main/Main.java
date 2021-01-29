@@ -8,6 +8,8 @@ import main.others.Restaurant;
 import main.ranks.*;
 import utils.*;
 import java.util.* ;
+import java.util.concurrent.ConcurrentLinkedDeque;
+
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static Date myClock = new Date();
@@ -50,7 +52,7 @@ public class Main {
             boolean bool=true;
             if (line[3].equals("false")) bool = false;
             ArrayList<String> ing = new ArrayList<String>();
-            for(String j:line[3].split(",")){
+            for(String j:line[2].split(",")){
                 ing.add(j);
             }
             restaurant.menu.add(new Food(Integer.parseInt(line[0]),line[1],ing,bool));
@@ -110,6 +112,9 @@ public class Main {
         boolean enter=false;
         ActionResult saveAccResult;
         line();
+        for (User i : restaurant.users){
+            System.out.println(i);
+        }
         while (true) { //start page
             System.out.print("type your number: | login = 0   registeer = 1   exit = 2| :");
             int start = scanner.nextInt();
@@ -196,36 +201,84 @@ public class Main {
         line();
     }
 
-    static void clientpanel(User client) {
+    static void clientpanel(User user) {
+        Client client = new Client(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel,"");
         System.out.println("---=== clientpanel ===---");
+        int start;
         while (true){
-            int start;
-            System.out.println("type your number: | show menu = 0    make order = 1    revoke order = 2    check my orders| :");
+            System.out.print("type your number: | show menu = 0    make order = 1    revoke order = 2    check my orders(all for now) = 3    exit = 4 | :");
             start=scanner.nextInt();
             if(start==0){
                 for(Food i : restaurant.menu){
-
+                    System.out.println(i.toString_show());
                 }
+                System.out.println();
             }
+            else if(start==1){
+                 System.out.println("enter your food id:");
+                 int id=scanner.nextInt();
+                 int orderId=0;
+                 boolean unique;
+                 for(int i=0;i<=100000000;i++){
+                     unique=true;
+                     for(Order j : restaurant.orders){
+                         if(i==j.id){
+                             unique=false;
+                         }
+                     }
+                     if(unique==true){
+                         orderId=i;
+                         break;
+                     }
+                 }
+                 Order order=new Order(orderId,client.username,id,OrderState.MADE,myClock);
+                 System.out.println(client.makeOrder(order,restaurant.orders,restaurant.menu));
+            }
+            else if(start==2){
+                System.out.println("enter your food id");
+                int id=scanner.nextInt();
+                System.out.println(client.revokeOrder(id,restaurant.orders));
+            }
+            else if(start==3){
+                System.out.println(restaurant.orders);
+            }
+            else if(start==4)return;
+            else System.out.println("please enter correct number : ");
         }
-        /*
-        show menu
-        refresh menu
-        Action result make order(Order order ,Restaurant restaurant)
-        Action result revoke order(revoke order ,Restaurant restaurant)
-        check my orders
-         */
     }
 
-    static void cashierpanel(User cashier) {
+    static void cashierpanel(User user) {
+        Cashier cashier = new Cashier(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
         System.out.println("---=== cashierpanel ===---");
-        /*
-        Action result confirmOrder(int id ,Restaurant restaurant)
-         */
+        int start;
+        while (true){
+            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            start=scanner.nextInt();
+            if(start==0){
+                System.out.println("enter food id : ");
+                int id=scanner.nextInt();
+                System.out.println(cashier.confirmOrder(id,restaurant.orders));
+            }
+            else if(start==1)return;
+            else System.out.println("please enter correct number : ");
+            System.out.println(restaurant.orders);
+        }
     }
 
-    static void chefpanel(User chef) {
+    static void chefpanel(User user) {
+        Chef chef = new Chef(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
+
         System.out.println("---=== chefpanel ===---");
+        int start;
+        while (true){
+            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            start=scanner.nextInt();
+            if(start==0){
+
+            }
+            else if(start==1)return;
+            else System.out.println("please enter correct number : ");
+        }
         /*
         ActionResult add food(Food food ,Restaurant restaurant)
         ActionResult edit food(int id ,Restaurant restaurant)
@@ -235,15 +288,39 @@ public class Main {
          */
     }
 
-    static void deliverymanpanel(User deliveryman) {
+    static void deliverymanpanel(User user) {
+        Deliveryman deliveryman = new Deliveryman(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
+
         System.out.println("---=== deliverymanpanel ===---");
+        int start;
+        while (true){
+            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            start=scanner.nextInt();
+            if(start==0){
+
+            }
+            else if(start==1)return;
+            else System.out.println("please enter correct number : ");
+        }
         /*
         ActionResult deliver (int id ,Restaurant restaurant) (if state==cooked change to delivered)
          */
     }
 
-    static void managerpanel(User manager) {
+    static void managerpanel(User user) {
+        Manager manager = new Manager(user.firstName,user.lastName,user.phonenumber,user.username,user.password,user.registrationDate,user.lastLoginDate,user.accessLevel);
+
         System.out.println("---=== managerpanel ===---");
+        int start;
+        while (true){
+            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            start=scanner.nextInt();
+            if(start==0){
+
+            }
+            else if(start==1)return;
+            else System.out.println("please enter correct number : ");
+        }
         /*
         ActionResult register (User member ,Restaurant restaurant)(ranks except client)(add to files and reload array)
         ActionResult edit (String username ,String password ,Restaurant restaurant)
