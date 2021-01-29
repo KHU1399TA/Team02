@@ -1,6 +1,7 @@
 package main.ranks;
 import main.enums.*;
 import java.util.Date;
+
 public abstract class User {
     public String firstName;
     public String lastName;

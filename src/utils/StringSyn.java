@@ -1,5 +1,4 @@
 package utils;
-
 import main.enums.*;
 
 public class StringSyn {

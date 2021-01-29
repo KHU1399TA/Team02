@@ -1,7 +1,5 @@
 package main.others;
-
 import main.enums.OrderState;
-
 import java.util.Date;
 
 public class Order {

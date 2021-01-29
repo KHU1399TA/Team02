@@ -1,19 +1,16 @@
 package main ;
-import main.enums.AccessLevel;
-import main.enums.ActionResult;
-import main.enums.OrderState;
-import main.others.Food;
-import main.others.Order;
-import main.others.Restaurant;
+import main.enums.*;
+import main.others.*;
 import main.ranks.*;
 import utils.*;
+import java.text.SimpleDateFormat;
 import java.util.* ;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static Date myClock = new Date();
     public static Restaurant restaurant = new Restaurant();
+    public static SimpleDateFormat myformat = new SimpleDateFormat("dd/MM/yy");
     private static final String Data_users = "src/resources/users.txt";
     private static final String Data_foods = "src/resources/foods.txt";
     private static final String Data_orders = "src/resources/orders.txt";

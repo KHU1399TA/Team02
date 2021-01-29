@@ -1,5 +1,6 @@
 package main.others;
 import java.util.ArrayList;
+
 public class Food {
     public int id;
     public String name;

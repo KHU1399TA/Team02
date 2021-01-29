@@ -1,10 +1,6 @@
 package main.ranks;
-
-import main.enums.AccessLevel;
-import main.enums.ActionResult;
-import main.enums.OrderState;
+import main.enums.*;
 import main.others.Order;
-
 import java.util.ArrayList;
 import java.util.Date;
 
