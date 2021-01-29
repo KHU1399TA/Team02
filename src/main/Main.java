@@ -255,7 +255,7 @@ public class Main {
             System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
             start=scanner.nextInt();
             if(start==0){
-                System.out.println("enter food id : ");
+                System.out.println("enter Order id : ");
                 int id=scanner.nextInt();
                 System.out.println(cashier.confirmOrder(id,restaurant.orders));
             }
@@ -294,17 +294,17 @@ public class Main {
         System.out.println("---=== deliverymanpanel ===---");
         int start;
         while (true){
-            System.out.print("type your number: | Confirm order = 0    exit = 1 | :");
+            System.out.print("type your number: | Deliver order = 0    exit = 1 | :");
             start=scanner.nextInt();
             if(start==0){
-
+                System.out.println("enter Order id : ");
+                int id=scanner.nextInt();
+                System.out.println(deliveryman.deliverOrder(id,restaurant.orders));
             }
             else if(start==1)return;
             else System.out.println("please enter correct number : ");
+            System.out.println(restaurant.orders);
         }
-        /*
-        ActionResult deliver (int id ,Restaurant restaurant) (if state==cooked change to delivered)
-         */
     }
 
     static void managerpanel(User user) {
