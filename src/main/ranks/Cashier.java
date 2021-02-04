@@ -25,9 +25,6 @@ public class Cashier extends User {
 
                 return ActionResult.SUCCESS;
             }
-            else {
-                System.out.println(i.id + "" + id + "&&" + i.state + "==" + OrderState.MADE);
-            }
         }
         return ActionResult.UNKNOWN_ERROR;
     }

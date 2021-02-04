@@ -45,7 +45,7 @@ public class Client extends User {
         }
         if (!check) return ActionResult.FOOD_NOT_FOUND;
 
-        orders.add(order);  // ??????????????????
+        orders.add(order);
         Main.save();
 
         return ActionResult.SUCCESS;

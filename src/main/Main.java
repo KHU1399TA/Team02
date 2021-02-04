@@ -23,7 +23,7 @@ public class Main {
         FileManager foods_file= new FileManager(Data_foods);
         FileManager orders_file= new FileManager(Data_orders);
 
-        for(String i : users_file.readAll().split("\n")) {       //  load users
+        for(String i : users_file.readAll().split("\n")) {
             if (i.length() == 0) break;
 
             String[] line = i.split("_");
@@ -51,7 +51,7 @@ public class Main {
             }
         }
 
-        for(String i : foods_file.readAll().split("\n")) {       //  load foods
+        for(String i : foods_file.readAll().split("\n")) {
             if (i.length() == 0) break;
 
             String[] line = i.split("_");
@@ -67,7 +67,7 @@ public class Main {
             restaurant.menu.add(new Food(Integer.parseInt(line[0]), line[1], ing, bool));
         }
 
-        for(String i : orders_file.readAll().split("\n")) {       //  load orders
+        for(String i : orders_file.readAll().split("\n")) {
             if (i.length() == 0) break;
 
             String[] line = i.split("_");
@@ -121,12 +121,6 @@ public class Main {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     }
 
-    public static void res_show() {
-        System.out.println("users: " + restaurant.users);
-        System.out.println("menu: " + restaurant.menu);
-        System.out.println("orders: " + restaurant.orders);
-    }
-
     public static void main(String[] agrs) throws Exception {
         System.out.println("                             ___/Welcome\\___");
         line();
@@ -139,15 +133,14 @@ public class Main {
         String address;
         ActionResult saveAccResult;
 
-        while (true) { //start page
+        while (true) {
             load();
-            res_show();             /********/
 
             System.out.print("type your number: | login = 0   registeer = 1   exit = 9| :");
             int start = scanner.nextInt();
             boolean enter = false;
 
-            if (start == 0) {           //login
+            if (start == 0) {
                 saveAccResult = ActionResult.USERNAME_NOT_FOUND;
 
                 System.out.print("enter your username: ");
@@ -166,7 +159,6 @@ public class Main {
 
                     }
                     else if (saveAccResult == ActionResult.SUCCESS) {
-                        enter = true;
 
                         switch (i.accessLevel) {
                             case CLIENT:
@@ -199,7 +191,7 @@ public class Main {
                 }
 
             }
-            else if (start == 1) {           //register
+            else if (start == 1) {
                 while (true) {
 
                     saveAccResult = ActionResult.SUCCESS;
@@ -240,7 +232,7 @@ public class Main {
                     break;
                 }
             }
-            else if (start == 9) {                //back to start
+            else if (start == 9) {
                 break;
             }
             else {
@@ -291,7 +283,6 @@ public class Main {
                 }
 
                 System.out.println(client.makeOrder(new Order(orderId, client.username, id, OrderState.MADE, new Date()), restaurant.orders, restaurant.menu));
-                res_show();             /********/
                 save();
 
             }
@@ -439,14 +430,12 @@ public class Main {
 
                 System.out.println(chef.changeFoodStatus(id, bool, restaurant.menu));
 
-
             }
             else if (start == 6) {
                 System.out.println("..|enter: Order id|..");
                 int id = scanner.nextInt();
 
                 System.out.println(chef.cook(id, restaurant.orders));
-
 
             }
             else if (start == 9) return;
