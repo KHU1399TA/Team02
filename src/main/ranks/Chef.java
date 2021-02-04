@@ -67,9 +67,6 @@ public class Chef extends User {
 
                 return ActionResult.SUCCESS;
             }
-            else {
-                System.out.println(i.id + " == " + id + " && " + i.state + " == " + OrderState.CONFIRMED);
-            }
         }
         return ActionResult.UNKNOWN_ERROR;
     }
