@@ -31,7 +31,7 @@ public abstract class User {
     }
 
     public String toString_show() {
-        return "F name : " + firstName + "  |  L name : " + lastName + "  |  phone number : " + phonenumber + "  |  username : " + username + "  |  password : " + password + "  |  reg Date : " + myformat.format(registrationDate) + "  |  last login Date : " + myformat.format(lastLoginDate) + "  |  AccLvl : " + accessLevel;
+        return accessLevel+":  |  F name : " + firstName + "  |  L name : " + lastName + "  |  phone number : " + phonenumber + "  |  username : " + username + "  |  password : " + password + "  |  reg Date : " + myformat.format(registrationDate) + "  |  last login Date : " + myformat.format(lastLoginDate);
     }
 
     public ActionResult login(String usernameInput,String passwordInput){

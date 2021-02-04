@@ -544,20 +544,20 @@ public class Main {
                     System.out.println("type your number: | client = 0    cashier = 1    chef = 2    delivery = 3    | :");
                     int accessLevelnum = scanner.nextInt();
 
-                    manager.edit(username, accessLevelnum, restaurant.users);
+                    System.out.println(manager.edit(username, accessLevelnum, restaurant.users));
                 }
                 else {
                     System.out.println("replace to:");
                     String string = scanner.next();
 
-                    manager.edit(username, id, string, restaurant.users);
+                    System.out.println(manager.edit(username, id, string, restaurant.users));
                 }
             }
             else if (start == 3) {
                 System.out.println("type username:");
                 String username = scanner.next();
 
-                manager.remove(username, restaurant.users);
+                System.out.println(manager.remove(username, restaurant.users));
             }
             else if (start == 9) return;
             else System.out.println("please enter correct number : ");

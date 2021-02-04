@@ -22,7 +22,7 @@ public class Client extends User {
 
     @Override
     public String toString_show() {
-        return "F name : " + firstName + "  |  L name : " + lastName + "  |  phone number : " + phonenumber + "  |  username : " + username + "  |  password : " + password + "  |  reg Date : " + myformat.format(registrationDate) + "  |  last login Date : " + myformat.format(lastLoginDate) + "  |  AccLvl : " + accessLevel+ "  |  address : "+address;
+        return accessLevel+":  |  F name : " + firstName + "  |  L name : " + lastName + "  |  phone number : " + phonenumber + "  |  username : " + username + "  |  password : " + password + "  |  reg Date : " + myformat.format(registrationDate) + "  |  last login Date : " + myformat.format(lastLoginDate) + "  |  address : "+address;
     }
 
     public static ActionResult makeOrder(Order order, ArrayList<Order> orders, ArrayList<Food> menu) {
@@ -54,6 +54,12 @@ public class Client extends User {
     public static ActionResult revokeOrder(int id, ArrayList<Order> orders, Client client) {
         for (Order i : orders) {
             if (id == i.id && i.username.equals(client.username)) {
+                if(i.state==OrderState.COOKED){
+                    return ActionResult.FOOD_ALREADY_COOKED;
+                }
+                else if(i.state==OrderState.DELIVERED){
+                    return ActionResult.FOOD_ALREADY_DELIVERED;
+                }
                 orders.remove(orders.indexOf(i));
                 Main.save();
                 return ActionResult.SUCCESS;

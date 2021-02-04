@@ -59,8 +59,8 @@ public class Manager extends User {
     public static ActionResult remove(String username, ArrayList<User> users) {
         for (User i : users) {
             if (i.username.equals(username)) {
-                Main.save();
                 users.remove(users.indexOf(i));
+                Main.save();
                 return ActionResult.SUCCESS;
             }
         }
